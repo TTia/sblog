@@ -1,16 +1,22 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: asset_url("Montserrat-Regular.ttf") format("truetype"), font_url("Montserrat-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
+	font-family: 'Montserrat';
+	src: url("/fonts/Montserrat-Regular.ttf" ') format("truetype"),
+		url("Montserrat-Bold.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
 @font-face {
-  font-family: 'VarelaRound';
-  src: asset_url("VarelaRound-Regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal; }
+	font-family: 'VarelaRound';
+	src: url("/fonts/VarelaRound-Regular.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
 * {
-  font-family: VarelaRound;
-  color: #2E2F30; }
+	font-family: VarelaRound;
+	color: #2E2F30;
+}
 
 body {
   background-color: #f1f1f1;

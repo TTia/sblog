@@ -1,52 +1,80 @@
 .posts #notice {
-  margin: 1em 15%;
-  text-align: center; }
-  .posts #notice p {
-    color: forestgreen; }
+	margin: 1em 15%;
+	text-align: center;
+}
+
+.posts #notice p {
+	color: forestgreen;
+}
+
 .posts #new_post_action {
-  text-align: center; }
+	text-align: center;
+}
+
 .posts .post {
-  margin: 1em 15%;
-  border-bottom: 1px solid #BBBBBB;
-  overflow: auto;
-  font-family: sans-serif; }
-  .posts .post .post_title a {
-    text-decoration: none;
-    font-size: 24px;
-    margin-bottom: 12px;
-    line-height: 35px;
-    font-family: Montserrat, sans-serif;
-    color: #34302d; }
-  .posts .post .post_detail {
-    color: #666666; }
-  .posts .post .post_actions {
-    margin-bottom: .5em;
-    float: right; }
+	margin: 1em 15%;
+	border-bottom: 1px solid #BBBBBB;
+	overflow: auto;
+	font-family: sans-serif;
+}
+
+.posts .post .post_title a {
+	text-decoration: none;
+	font-size: 24px;
+	margin-bottom: 12px;
+	line-height: 35px;
+	font-family: Montserrat, sans-serif;
+	color: #34302d;
+}
+
+.posts .post .post_detail {
+	color: #666666;
+}
+
+.posts .post .post_actions {
+	margin-bottom: .5em;
+	float: right;
+}
 
 form {
-  margin: 1em 15%; }
-  form .form_actions {
-    float: left;
-    margin-top: 1em; }
-  form .error_explanation {
-    clear: both; }
-    form .error_explanation p {
-      font-size: large;
-      font-family: Montserrat, sans-serif;
-      color: #8c2828; }
-    form .error_explanation li {
-      color: #8c2828; }
-  form #form_title {
-    text-decoration: none;
-    font-size: x-large;
-    font-family: Montserrat, sans-serif;
-    color: #34302d;
-    float: left;
-    margin-left: 1em; }
-  form #title_field {
-    clear: both;
-    margin-bottom: 1em;
-    margin-top: 1em; }
-  form .field {
-    margin-bottom: 1em;
-    margin-top: 1em; }
+	margin: 1em 15%;
+}
+
+form .form_actions {
+	float: left;
+	margin-top: 1em;
+}
+
+form .error_explanation {
+	clear: both;
+}
+
+form .error_explanation p {
+	font-size: large;
+	font-family: Montserrat, sans-serif;
+	color: #8c2828;
+}
+
+form .error_explanation li {
+	color: #8c2828;
+}
+
+form #form_title {
+	text-decoration: none;
+	font-size: x-large;
+	font-family: Montserrat, sans-serif;
+	color: #34302d;
+	float: left;
+	margin-left: 1em;
+}
+
+form #title_field {
+	clear: both;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+form .field {
+	margin-bottom: 1em;
+	margin-top: 1em;
+}

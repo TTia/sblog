@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layouts/head"/>
+<body th:class="${class_name}">
+	<div id="header" th:replace="/layouts/header"></div>
+	<div th:replace="${content_template}"></div>
+	<div id="footer" th:replace="/layouts/footer"></div>
+</body>
+</html>

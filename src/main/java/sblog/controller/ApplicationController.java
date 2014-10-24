@@ -16,10 +16,6 @@
 
 package sblog.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,27 +24,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ApplicationController extends AbstractController{
 	@RequestMapping("/")
 	public String welcome(Model model) {
-		addCssLinksToPath(model);
-		return "/posts/index";
+    	model.addAttribute("page_title", "RBlog");
+    	model.addAttribute("content_template", "/posts/index");
+    	
+    	this.addDefaultAttributes(model);
+		return super.defaultMapping(model);
 	}
-	/*
-    @RequestMapping(method = GET, value = "/index")
-    public String index(Model model) {
-        System.err.println("Index");
-        return "index.html";
-    }
 
-    private static final String abstract_mapping = "abstract";
-    @RequestMapping(value = abstract_mapping)
+    @RequestMapping(value = "/abstract")
     public String abstractPage(Model model){
-        return abstract_mapping;
+    	model.addAttribute("page_title", "Abstract");
+    	model.addAttribute("content_template", "/pages/abstract");
+    	
+    	this.addDefaultAttributes(model);
+        return super.defaultMapping(model);
     }
 
-    private static final String author_page_mapping = "author";
-    @RequestMapping(value = author_page_mapping)
+    @RequestMapping(value = "/author")
     public String authorPage(Model model){
-        return author_page_mapping;
+    	model.addAttribute("page_title", "Autore");
+    	model.addAttribute("content_template", "/pages/author");
+    	
+    	this.addDefaultAttributes(model);
+        return super.defaultMapping(model);
     }
-    */
+    
+    private void addDefaultAttributes(Model model){
+    	model.addAttribute("class_name", "pages");
+    }
 
 }
