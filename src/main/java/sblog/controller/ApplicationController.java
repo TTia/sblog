@@ -16,29 +16,22 @@
 
 package sblog.controller;
 
-import java.util.Date;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-
 @Controller
-public class ApplicationController {
-
-	@Value("${application.message:Hello World}")
-	private String message = "Hello World";
-
+public class ApplicationController extends AbstractController{
 	@RequestMapping("/")
-	public String welcome(Map<String, Object> model) {
-		model.put("time", new Date());
-		model.put("message", this.message);
-		return "welcome";
+	public String welcome(Model model) {
+		addCssLinksToPath(model);
+		return "/posts/index";
 	}
-
+	/*
     @RequestMapping(method = GET, value = "/index")
     public String index(Model model) {
         System.err.println("Index");
@@ -56,5 +49,6 @@ public class ApplicationController {
     public String authorPage(Model model){
         return author_page_mapping;
     }
+    */
 
 }
