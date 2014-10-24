@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @page_title || 'RBlog' %></title>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <%= csrf_meta_tags %>
+
+</head>
+<body class='<%= controller.controller_name %>'>
+<div id="header">
+  <%= logo_image_link %>
+  <div id="header_title">
+    <%= link_to 'RBlog', :root %>
+  </div>
+  <div id="banner_links">
+    <div class="banner_link" id="login_link">
+      <% if current_user %>
+          <%= link_to "#{current_user.email} - Esci", :log_out, :id => 'log_out_link' %>
+      <% else %>
+          <%= link_to 'Login', :log_in, :id => 'log_in_link' %>
+      <% end %>
+    </div>
+    <div class="banner_link" id="author_link">
+      <%= link_to 'Autore', :author %>
+    </div>
+    <div class="banner_link" id="abstract_link">
+      <%= link_to 'Abstract', :abstract %>
+    </div>
+    <%= render 'layouts/search_header_form' %>
+  </div>
+</div>
+
+<div id="content">
+  <%= yield %>
+</div>
+<div id="footer" onclick='switch_easter_egg()'>
+  <p>© 2014 - Mattia</p>
+</div>
+</body>
+</html>
