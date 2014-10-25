@@ -1,0 +1,24 @@
+<div id="header">
+	<a id="logo" href="/"> <img alt="RBlog Logo" src="/images/spring.png"
+		width="80" height="80" />
+	</a>
+	<div id="header_title">
+		<a href="/" th:text="${page_title}">RBlog</a>
+	</div>
+	<div id="banner_links">
+		<div class="banner_link" id="login_link">
+			<a href="/">Login</a>
+			<!-- <% if current_user %> -->
+			<!-- <%= link_to "#{current_user.email} - Esci", :log_out, :id =>
+				'log_out_link' %> <% else %> <%= link_to 'Login', :log_in, :id =>
+				'log_in_link' %> <% end %>-->
+		</div>
+		<div class="banner_link" id="author_link">
+			<a href="/author">Autore</a>
+		</div>
+		<div class="banner_link" id="abstract_link">
+			<a href="/abstract">Abstract</a>
+		</div>
+		<!-- <%= render 'layouts/search_header_form' %> -->
+	</div>
+</div>

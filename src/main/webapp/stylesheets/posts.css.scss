@@ -1,0 +1,78 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.scss.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.posts {
+  #notice {
+	margin: 1em 15%;
+	text-align: center;
+	p {
+	  color: forestgreen;
+	}
+  }
+  #new_post_action {
+	text-align: center;
+  }
+  .post {
+	margin: 1em 15%;
+	border-bottom: 1px solid #BBBBBB;
+
+	overflow: auto;
+	font-family: sans-serif;
+	.post_title {
+	  a {
+		text-decoration: none;
+		font-size: 24px;
+		margin-bottom: 12px;
+		line-height: 35px;
+		font-family: Montserrat, sans-serif;
+		color: #34302d;
+	  }
+	}
+	.post_detail {
+	  color: #666666;
+	}
+	.post_content {
+	}
+	.post_actions {
+	  margin-bottom: .5em;
+	  float: right;
+	}
+  }
+}
+
+form {
+  margin: 1em 15%;
+  .form_actions {
+	float: left;
+	margin-top: 1em;
+  }
+  .error_explanation {
+	clear: both;
+	p {
+	  font-size: large;
+	  font-family: Montserrat, sans-serif;
+	  color: #8c2828;
+	}
+	li {
+	  color: #8c2828;
+	}
+  }
+  #form_title {
+	text-decoration: none;
+	font-size: x-large;
+	font-family: Montserrat, sans-serif;
+	color: #34302d;
+	float: left;
+	margin-left: 1em;
+  }
+  #title_field {
+	clear: both;
+	margin-bottom: 1em;
+	margin-top: 1em;
+  }
+  .field {
+	margin-bottom: 1em;
+	margin-top: 1em;
+  }
+}

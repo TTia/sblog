@@ -1,0 +1,31 @@
+<%= form_for(@post) do |f| %>
+    <div class="form_actions">
+      <%= image_submit_tag('save_48.png',
+                           :alt => 'Crea un nuovo post',
+                           :id => 'submit') %>
+    </div>
+    <p id="form_title"><%= @form_title %></p>
+    <% if @post.errors.any? %>
+        <div class="error_explanation">
+          <p><%= if @post.errors.count > 1
+                 then
+                   "#{@post.errors.count} errori hanno"
+                 else
+                   'Un errore ha'
+                 end %> impedito il salvataggio.</p>
+        </div>
+    <% end %>
+
+    <div id="title_field">
+      <%= f.label :title, 'Titolo' %>
+      <%= render :partial => 'error_explanation',
+                 :locals => {:errors => @post.errors[:title]} %>
+      <%= f.text_field :title, :size => 50 %>
+    </div>
+    <div class="field">
+      <%= f.label :body, 'Post' %>
+      <%= render :partial => 'error_explanation',
+                 :locals => {:errors => @post.errors[:body]} %>
+      <%= f.text_area :body, :cols => '75', :rows => '20' %>
+    </div>
+<% end %>

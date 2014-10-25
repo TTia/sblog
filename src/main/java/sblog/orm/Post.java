@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,7 +34,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer id;
 
-    @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     @JoinTable(name = AUTHOR_POST_JOIN_TABLE,
             joinColumns = @JoinColumn(
@@ -43,11 +43,14 @@ public class Post {
                     AUTHOR_JOIN_COLUMN, POST_JOIN_COLUMN}))
     Author author;
 
-    @Size(min=5, max=100)
+    @Size(min=5, max=100, message = "Il titolo deve essere compreso fra 5 e 100 caratteri.")
+    @NotNull(message = "Titolo mancante.")
     @Column(nullable = false, unique = true)
     String title;
 
-    @Size(min=5)
+    @Size(min=5, message = "Il post deve essere almeno di 5 caratteri.")
+    @NotNull(message = "Articolo mancante.")
+    @Lob
     @Column(nullable = false)
     String body;
 
@@ -62,6 +65,7 @@ public class Post {
     Date updated_at;
     
     public Post(){
+    	id = 0;
     	setCreated_at(new Date());
     }
 

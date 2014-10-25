@@ -1,14 +1,26 @@
 package sblog.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sblog.service.AuthorService;
+
 @Controller
 public class PageController extends AbstractController{
+	/***/
+	@Autowired
+	AuthorService authorService;
+	/***/
+	
 	@RequestMapping("/")
 	public String welcome(Model model) {
-    	model.addAttribute("page_title", "RBlog");
+		/***/
+		authorService.defineTTia();
+		/***/
+		
+    	model.addAttribute("page_title", "SBlog");
     	model.addAttribute("content_template", "/posts/index");
     	
     	this.addDefaultAttributes(model);

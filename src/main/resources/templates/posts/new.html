@@ -1,0 +1,51 @@
+<div id="content">
+	<form accept-charset="UTF-8" action="#" th:action="@{/posts/new}"
+		th:class="${form_class}" th:id="${form_id}" method="post"
+		th:object="${post}">
+		<div class="form_actions">
+			<input alt="${submit_text}" id="submit" src="/images/save_48.png"
+				type="image" />
+		</div>
+		<p id="form_title" th:text="${submit_text}"></p>
+		<div class="error_explanation">
+			<p th:if="${#fields.errors('*').size() &gt; 1}" 
+				th:text="${#fields.errors('*').size()}+' errori hanno impedito il salvataggio.'">
+			</p>
+			<p th:unless="${#fields.errors('*').size() &gt; 1}" 
+				th:text="'1 errore ha impedito il salvataggio.'">
+			</p>
+		</div>
+
+		<div id="title_field">
+			<div class="field_with_errors">
+				<label for="post_title">Titolo</label>
+			</div>
+			<div class="error_explanation" th:if="${#fields.hasErrors('title')}">
+				<ul>
+					<li th:errors="*{title}">Title Error</li>
+				</ul>
+			</div>
+
+			<div class="field_with_errors">
+				<input id="post_title" name="title" size="50" type="text"
+					th:field="*{title}" />
+			</div>
+		</div>
+		<div class="field">
+			<div class="field_with_errors">
+				<label for="post_body">Post</label>
+			</div>
+			<div class="error_explanation" th:if="${#fields.hasErrors('body')}">
+				<ul>
+					<li th:errors="*{body}">Body Error</li>
+				</ul>
+			</div>
+
+			<div class="field_with_errors">
+				<textarea cols="75" id="post_body" name="body" rows="20"
+					th:field="*{body}"></textarea>
+			</div>
+		</div>
+	</form>
+
+</div>
