@@ -1,0 +1,42 @@
+form {
+	margin: 1em 15%;
+}
+
+form .form_actions {
+	float: left;
+	margin-top: 1em;
+}
+
+form .error_explanation {
+	clear: both;
+}
+
+form .error_explanation p {
+	font-size: large;
+	font-family: Montserrat, sans-serif;
+	color: #8c2828;
+}
+
+form .error_explanation li {
+	color: #8c2828;
+}
+
+form #form_title {
+	text-decoration: none;
+	font-size: x-large;
+	font-family: Montserrat, sans-serif;
+	color: #34302d;
+	float: left;
+	margin-left: 1em;
+}
+
+form #title_field {
+	clear: both;
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+form .field {
+	margin-bottom: 1em;
+	margin-top: 1em;
+}

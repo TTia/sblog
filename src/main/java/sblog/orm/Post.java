@@ -1,11 +1,26 @@
 package sblog.orm;
 
 
-import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 @Entity
@@ -18,6 +33,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer id;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch=FetchType.LAZY)
     @JoinTable(name = AUTHOR_POST_JOIN_TABLE,
             joinColumns = @JoinColumn(
@@ -27,23 +43,36 @@ public class Post {
                     AUTHOR_JOIN_COLUMN, POST_JOIN_COLUMN}))
     Author author;
 
-    @Column(nullable = false)
+    @Size(min=5, max=100)
+    @Column(nullable = false, unique = true)
     String title;
 
+    @Size(min=5)
     @Column(nullable = false)
     String body;
 
+    @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     Date created_at;
 
+    @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     Date updated_at;
+    
+    public Post(){
+    	setCreated_at(new Date());
+    }
 
     public Integer getId() {
         return id;
     }
+    
+    @Deprecated
+    public void setId(Integer id) {
+		this.id = id;
+	}
 
     public Author getAuthor() {
         return author;
@@ -73,12 +102,30 @@ public class Post {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    protected void setCreated_at(Date created_at) {
         this.created_at = created_at;
+        if(updated_at == null){
+        	this.updated_at = this.created_at;
+        }
     }
 
     public Date getUpdated_at() {
         return updated_at;
+    }
+    
+    public String creationDetail(){
+    	StringBuilder stringBuilder = new StringBuilder("Creato il ");
+    	stringBuilder.append(formatDate(created_at));
+    	
+    	if(created_at.equals(updated_at)){
+    		stringBuilder.append(".");
+    		return stringBuilder.toString();
+    	}
+    	stringBuilder.append(" e modificato il ");
+    	stringBuilder.append(formatDate(updated_at));
+    	stringBuilder.append(".");
+    	
+    	return stringBuilder.toString();
     }
 
     public void setUpdated_at(Date updated_at) {
@@ -97,5 +144,10 @@ public class Post {
         }
         Post post = (Post) obj;
         return this.hashCode() == post.hashCode();
+    }
+    
+    private String formatDate(Date date){
+    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy @ h:mm a");
+    	return simpleDateFormat.format(date);
     }
 }
