@@ -18,7 +18,7 @@
 //= require turbolinks
 //= require_tree .
 
-$(window).bind('page:change', autocomplete)
+$(window).bind('page:change', autocomplete);
 
 $(document).ready(autocomplete);
 
@@ -56,7 +56,7 @@ function switch_easter_egg() {
     var woodstock = $('#woodstock');
     if (!woodstock.length) {
         var img = document.createElement("img");
-        img.src = "/assets/woodstock.png";
+        img.src = "/images/woodstock.png";
         img.id = "woodstock";
         img.width = "48";
         img.height = "48";

@@ -26,6 +26,7 @@ public class PageController extends AbstractController{
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/index");
 		model.addAttribute("notice", "!!!");
+		model.addAttribute("shortener", "true");
 		model.addAttribute("posts", postService.findAll());
 		
 		return super.defaultMapping(model);

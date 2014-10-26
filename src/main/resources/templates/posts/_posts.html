@@ -3,12 +3,16 @@
 		<a th:href="|/posts/${post.id}|" th:text="${post.title}"></a>
 	</p>
 
-	<p class="post_detail">
-	<p th:text="${post.creationDetail()}"></p>
-	<p th:text="${post.author.authorDetail()}"></p>
-	</p>
+	<div class="post_detail" th:text="${post.creationDetail()}"></div>
+	<div class="post_detail" th:text="${post.author.authorDetail()}"></div>
 
-	<p class="post_content">Story Beta</p>
+	<div class="post_content" th:if="${shortener}">
+		<p class="post_content"
+			th:text="${#strings.abbreviate(post.body, 500)}"></p>
+		<a th:if="${post.body.length()} > 500" th:href="|/posts/${post.id}|">Leggi il resto</a>
+	</div>
+	<p class="post_content" th:unless="${shortener}" th:text="${post.body}"></p>
+
 	<div class="post_actions">
 		<form class="post_action" th:method="post"
 			th:action="|/posts/${post.id}/edit|" rel="nofollow">
