@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sblog.orm.Post;
 import sblog.service.AuthorService;
@@ -30,7 +31,6 @@ public class PostController extends AbstractController {
 		this.addDefaultAttributes(model);
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/index");
-		model.addAttribute("notice", "!!!");
 		model.addAttribute("shortener", "true");
 		model.addAttribute("posts", postService.findAll());
 
@@ -42,15 +42,14 @@ public class PostController extends AbstractController {
 		Post post = postService.getPost(id);
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/show");
-		model.addAttribute("notice", "!!!");
-		model.addAttribute("posts", new Post[]{post});
+		model.addAttribute("posts", new Post[] { post });
 
 		return super.defaultMapping(model);
 	}
 
 	@RequestMapping(value = "/posts/new")
 	public String newPost(@Valid Post post, BindingResult bindingResult,
-			Model model) {
+			Model model, RedirectAttributes redirectAttributes) {
 		if (post.getAuthor() == null) {
 			post.setAuthor(authorService.getTTia());
 		}
@@ -65,37 +64,29 @@ public class PostController extends AbstractController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("content_template", "/posts/new");
-		} else {
-			postService.createPost(post);
-			model.addAttribute("content_template", "/posts/index");
+			return super.defaultMapping(model);
 		}
-		return super.defaultMapping(model);
+		post = postService.createPost(post);
+		redirectAttributes.addFlashAttribute("content_template", "/posts/show");
+		redirectAttributes.addFlashAttribute("notice", String.format(
+				"Il post '%s' è stato creato con successo.", post.getTitle()));
+		redirectAttributes.addAttribute("id", post.getId());
+		return "redirect:/posts/{id}";
 	}
 
 	@RequestMapping(value = "/posts/{id}/edit")
 	public String editPost(@RequestParam Integer id, @Valid Post post,
 			BindingResult bindingResult, Model model) {
-		if (post == null) {
-			post = postService.getPost(id);
-		}
-		this.defaultMapping(model);
-		model.addAttribute("page_title", "SBlog");
-		model.addAttribute("submit_text", "Aggiorna " + post.getTitle());
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("content_template", "/posts/" + id + "/edit");
-		} else {
-			/**
-			 * Save
-			 * */
-			model.addAttribute("content_template", "/posts/index");
-		}
-		return super.defaultMapping(model);
+		throw new RuntimeException();
 	}
 
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
-	public String destroy(@PathVariable Integer id, Model model) {
-		postService.deletePost(id);
-		return "redirect:/posts";
+	public String destroy(@PathVariable Integer id,
+			RedirectAttributes redirectAttributes) {
+		String title = postService.deletePost(id);
+		redirectAttributes.addFlashAttribute("notice", String.format(
+				"Il post '%s' è stato cancellato con successo.", title));
+		return "redirect:/";
 	}
 
 	@RequestMapping

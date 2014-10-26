@@ -19,8 +19,8 @@ public class PostService {
 	@Autowired
 	AuthorRepository authorRepository;
 
-	public void createPost(Post post) {
-		postRepository.saveAndFlush(post);
+	public Post createPost(Post post) {
+		return postRepository.saveAndFlush(post);
 		/*
 		Author author = post.getAuthor(); 
 		author.addPost(post);
@@ -45,14 +45,15 @@ public class PostService {
 		return postRepository.findPostByTitle(title);
 	}
 
-	public void deletePost(Integer id) {
+	public String deletePost(Integer id) {
 		Post post = postRepository.findOne(id);
 		Author author = post.getAuthor();
 		author.removePost(post);
 		authorRepository.saveAndFlush(author);
 		
 		postRepository.delete(id);
-		postRepository.flush();		
+		postRepository.flush();
+		return post.getTitle();
 	}
 
 	public void updatePost(Post post) {
