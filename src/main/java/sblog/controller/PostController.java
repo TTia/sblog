@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sblog.orm.Post;
-import sblog.repository.PostTitleUniquenessValidator;
 import sblog.service.AuthorService;
 import sblog.service.PostService;
 
@@ -41,9 +39,10 @@ public class PostController extends AbstractController {
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable Integer id, Model model) {
 		Post post = postService.getPost(id);
-		this.defaultMapping(model);
-		model.addAttribute("page_title", post.getTitle());
+		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/show");
+		model.addAttribute("notice", "!!!");
+		model.addAttribute("posts", new Post[]{post});
 
 		return super.defaultMapping(model);
 	}

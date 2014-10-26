@@ -1,0 +1,11 @@
+<div id='content' class='posts'>
+	<div id="notice" th:if="${notice}">
+		<p xmlns="">
+			<img alt="Bulb" border="0" height="32" src="/images/bulb.png"
+				title="Operazione completata" width="32" />
+			<nobr th:text="${notice}" />
+		</p>
+	</div>
+	<div th:replace="/posts/_posts">
+	</div>
+</div>

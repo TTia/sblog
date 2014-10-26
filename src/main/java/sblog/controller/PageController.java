@@ -6,12 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sblog.service.AuthorService;
+import sblog.service.PostService;
 
 @Controller
 public class PageController extends AbstractController{
 	/***/
 	@Autowired
 	AuthorService authorService;
+	@Autowired
+	PostService postService;
 	/***/
 	
 	@RequestMapping("/")
@@ -19,11 +22,12 @@ public class PageController extends AbstractController{
 		/***/
 		authorService.defineTTia();
 		/***/
+		this.addDefaultAttributes(model);
+		model.addAttribute("page_title", "SBlog");
+		model.addAttribute("content_template", "/posts/index");
+		model.addAttribute("notice", "!!!");
+		model.addAttribute("posts", postService.findAll());
 		
-    	model.addAttribute("page_title", "SBlog");
-    	model.addAttribute("content_template", "/posts/index");
-    	
-    	this.addDefaultAttributes(model);
 		return super.defaultMapping(model);
 	}
 
