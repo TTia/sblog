@@ -39,3 +39,11 @@
 	margin-bottom: .5em;
 	float: right;
 }
+
+.posts .post_actions .post_action {
+	display: inline;
+	margin-top: 0em;
+	margin-bottom: 0.5em;
+	margin-left: 0%;
+	margin-right: 0%;
+}

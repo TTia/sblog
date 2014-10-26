@@ -1,7 +1,6 @@
 <div id="content">
 	<form accept-charset="UTF-8" action="#" th:action="@{/posts/new}"
-		th:class="${form_class}" th:id="${form_id}" method="post"
-		th:object="${post}">
+		method="post" th:object="${post}">
 		<div class="form_actions">
 			<input alt="${submit_text}" id="submit" src="/images/save_48.png"
 				type="image" />
@@ -21,14 +20,12 @@
 				<label for="post_title">Titolo</label>
 			</div>
 			<div class="error_explanation" th:if="${#fields.hasErrors('title')}">
-				<ul>
-					<li th:errors="*{title}">Title Error</li>
-				</ul>
+				<p id="error_description" th:errors="*{title}"></p>
 			</div>
 
 			<div class="field_with_errors">
 				<input id="post_title" name="title" size="50" type="text"
-					th:field="*{title}" />
+					th:field="*{title}" th:value="*{title}"/>
 			</div>
 		</div>
 		<div class="field">
@@ -36,14 +33,12 @@
 				<label for="post_body">Post</label>
 			</div>
 			<div class="error_explanation" th:if="${#fields.hasErrors('body')}">
-				<ul>
-					<li th:errors="*{body}">Body Error</li>
-				</ul>
+				<p id="error_description" th:errors="*{body}"></p>
 			</div>
 
 			<div class="field_with_errors">
 				<textarea cols="75" id="post_body" name="body" rows="20"
-					th:field="*{body}"></textarea>
+					th:field="*{body}" th:text="*{body}"></textarea>
 			</div>
 		</div>
 	</form>

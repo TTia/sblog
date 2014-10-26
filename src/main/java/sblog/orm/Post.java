@@ -45,6 +45,7 @@ public class Post {
 
     @Size(min=5, max=100, message = "Il titolo deve essere compreso fra 5 e 100 caratteri.")
     @NotNull(message = "Titolo mancante.")
+    //@UniqueTitle
     @Column(nullable = false, unique = true)
     String title;
 
@@ -57,12 +58,12 @@ public class Post {
     @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    Date created_at;
+    Date createdAt;
 
     @NotNull
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    Date updated_at;
+    Date updatedAt;
     
     public Post(){
     	id = 0;
@@ -103,37 +104,37 @@ public class Post {
     }
 
     public Date getCreated_at() {
-        return created_at;
+        return createdAt;
     }
 
     protected void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-        if(updated_at == null){
-        	this.updated_at = this.created_at;
+        this.createdAt = created_at;
+        if(updatedAt == null){
+        	this.updatedAt = this.createdAt;
         }
     }
 
     public Date getUpdated_at() {
-        return updated_at;
+        return updatedAt;
     }
     
     public String creationDetail(){
     	StringBuilder stringBuilder = new StringBuilder("Creato il ");
-    	stringBuilder.append(formatDate(created_at));
+    	stringBuilder.append(formatDate(createdAt));
     	
-    	if(created_at.equals(updated_at)){
+    	if(createdAt.equals(updatedAt)){
     		stringBuilder.append(".");
     		return stringBuilder.toString();
     	}
     	stringBuilder.append(" e modificato il ");
-    	stringBuilder.append(formatDate(updated_at));
+    	stringBuilder.append(formatDate(updatedAt));
     	stringBuilder.append(".");
     	
     	return stringBuilder.toString();
     }
 
     public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+        this.updatedAt = updated_at;
     }
 
     @Override

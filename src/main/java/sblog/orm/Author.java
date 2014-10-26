@@ -102,6 +102,13 @@ public class Author {
 		}
 		return posts.add(post);
 	}
+	
+	public boolean removePost(Post post){
+		if (posts == null) {
+			return false;
+		}
+		return posts.remove(post);
+	}
 
 	public String authorDetail() {
 		return new StringBuilder("Scritto da ").append(email).toString();

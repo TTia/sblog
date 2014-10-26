@@ -26,14 +26,18 @@
 
 		<p class="post_content">Story Beta</p>
 		<div class="post_actions">
-			<a class="edit_post_button" th:href="|/posts/${post.id}/edit|"><img
-				alt="Write" border="0" height="32" src="/images/write.png"
-				th:title="'Aggiorna'+${post.title}" width="32" /></a> <a
-				class="remove_post_button"
-				th:attr="data-confirm='Sei sicuro di voler cancellare \''+${post.title}+'\'?'"
-				data-method="delete" th:href="|/posts/${post.id}|" rel="nofollow"><img
-				alt="Remove" border="0" height="32" src="/images/remove.png"
-				title="Rimuovi 'Story Beta'" width="32" /></a>
+			<form class="post_action" th:method="post"
+				th:action="|/posts/${post.id}/edit|" rel="nofollow">
+				<input type="image" alt="Aggiorna" border="0" height="32"
+					src="/images/write.png" th:title="'Aggiorna '+${post.title}"
+					width="32" />
+			</form>
+			<form class="post_action" th:method="delete"
+				th:action="|/posts/${post.id}|" rel="nofollow">
+				<input type="image" alt="Rimuovi" border="0"
+					src="/images/remove.png" th:title="'Rimuovi '+${post.title}"
+					height="32" width="32" />
+			</form>
 		</div>
 	</div>
 </div>
