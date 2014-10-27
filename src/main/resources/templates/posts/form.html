@@ -1,18 +1,17 @@
 <div id="content">
-	<form accept-charset="UTF-8" action="#" th:action="@{/posts/new}"
-		method="post" th:object="${post}">
+	<form accept-charset="UTF-8" action="#" method="post"
+		th:object="${post}">
 		<div class="form_actions">
 			<input alt="${submit_text}" id="submit" src="/images/save_48.png"
 				type="image" />
 		</div>
 		<p id="form_title" th:text="${submit_text}"></p>
 		<div class="error_explanation">
-			<p th:if="${#fields.errors('*').size() &gt; 1}" 
+			<p th:if="${#fields.errors('*').size() &gt; 1}"
 				th:text="${#fields.errors('*').size()}+' errori hanno impedito il salvataggio.'">
 			</p>
-			<p th:unless="${#fields.errors('*').size() &gt; 1}" 
-				th:text="'1 errore ha impedito il salvataggio.'">
-			</p>
+			<p th:if="${#fields.errors('*').size() == 1}"
+				th:text="'1 errore ha impedito il salvataggio.'"></p>
 		</div>
 
 		<div id="title_field">
@@ -25,7 +24,7 @@
 
 			<div class="field_with_errors">
 				<input id="post_title" name="title" size="50" type="text"
-					th:field="*{title}" th:value="*{title}"/>
+					th:field="*{title}" th:value="*{title}" />
 			</div>
 		</div>
 		<div class="field">

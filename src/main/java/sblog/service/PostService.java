@@ -1,6 +1,8 @@
 package sblog.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,7 +40,18 @@ public class PostService {
 	}
 
 	public String[] queryByTitle(String title) {
-		throw new RuntimeException();
+		List<Post> posts = postRepository.findPostByTitleContainingIgnoreCase(title);
+		String[] postsTitles = new String[posts.size()];
+		for(int i = 0; i<posts.size(); i++){
+			postsTitles[i] = posts.get(i).getTitle(); 
+		}
+		return postsTitles;
+	}
+	
+	public List<Post> findPostsByTitle(String title){
+		List<Post> posts = postRepository.findPostByTitleContainingIgnoreCase(title);
+		System.err.println(posts);
+		return posts;
 	}
 	
 	public Post findPostByTitle(String title){
@@ -56,8 +69,12 @@ public class PostService {
 		return post.getTitle();
 	}
 
-	public void updatePost(Post post) {
-		throw new RuntimeException();
+	public Post updatePost(Post post) {
+		Post olderVersion = postRepository.getOne(post.getId());
+		olderVersion.setTitle(post.getTitle());
+		olderVersion.setBody(post.getBody());
+		olderVersion.setUpdated_at(new Date());
+		return postRepository.saveAndFlush(olderVersion);
 	}
 
 }

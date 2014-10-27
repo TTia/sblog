@@ -27,12 +27,16 @@ public class PostController extends AbstractController {
 	AuthorService authorService;
 
 	@RequestMapping(value = "/posts")
-	public String index(Model model) {
+	public String index(
+			@RequestParam(value = "title", defaultValue = "*") String title,
+			Model model) {
 		this.addDefaultAttributes(model);
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/index");
 		model.addAttribute("shortener", "true");
-		model.addAttribute("posts", postService.findAll());
+		System.err.println(title);
+		model.addAttribute("posts", "*".equals(title) ? postService.findAll()
+				: postService.findPostsByTitle(title));
 
 		return super.defaultMapping(model);
 	}
@@ -47,13 +51,14 @@ public class PostController extends AbstractController {
 		return super.defaultMapping(model);
 	}
 
-	@RequestMapping(value = "/posts/new")
+	@RequestMapping(value = "/posts/new", method = RequestMethod.POST)
 	public String newPost(@Valid Post post, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes) {
 		if (post.getAuthor() == null) {
 			post.setAuthor(authorService.getTTia());
 		}
 		this.defaultMapping(model);
+		model.addAttribute("post", post);
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("submit_text", "Scrivi un nuovo post");
 
@@ -63,21 +68,50 @@ public class PostController extends AbstractController {
 		}
 
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("content_template", "/posts/new");
+			model.addAttribute("content_template", "/posts/form");
 			return super.defaultMapping(model);
 		}
 		post = postService.createPost(post);
 		redirectAttributes.addFlashAttribute("content_template", "/posts/show");
-		redirectAttributes.addFlashAttribute("notice", String.format(
-				"Il post '%s' è stato creato con successo.", post.getTitle()));
+		redirectAttributes.addFlashAttribute(
+				"notice",
+				String.format("Il post '%s' è stato creato con successo.",
+						post.getTitle()));
 		redirectAttributes.addAttribute("id", post.getId());
 		return "redirect:/posts/{id}";
 	}
 
 	@RequestMapping(value = "/posts/{id}/edit")
-	public String editPost(@RequestParam Integer id, @Valid Post post,
-			BindingResult bindingResult, Model model) {
-		throw new RuntimeException();
+	public String editPost(@PathVariable Integer id, @Valid Post post,
+			BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
+		if (post == null || post.getTitle() == null) {
+			post = postService.getPost(id);
+		}
+		Post temp;
+		if ((temp = postService.findPostByTitle(post.getTitle())) != null
+				&& temp.getId() != post.getId()) {
+			bindingResult.addError(new FieldError("post", "title",
+					"Il titolo è già presente."));
+		}
+
+		this.defaultMapping(model);
+		model.addAttribute("post", post);
+		model.addAttribute("page_title", "SBlog");
+		model.addAttribute("submit_text",
+				String.format("Aggiorna %s", post.getTitle()));
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("content_template", "/posts/form");
+			return super.defaultMapping(model);
+		}
+		post = postService.updatePost(post);
+		redirectAttributes.addFlashAttribute("content_template", "/posts/show");
+		redirectAttributes.addFlashAttribute("notice", String.format(
+				"Il post '%s' è stato aggiornato con successo.",
+				post.getTitle()));
+		redirectAttributes.addAttribute("id", post.getId());
+		return "redirect:/posts/{id}";
 	}
 
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
@@ -89,20 +123,14 @@ public class PostController extends AbstractController {
 		return "redirect:/";
 	}
 
-	@RequestMapping
+	@RequestMapping(value = "/posts/autocomplete_title", method = RequestMethod.GET)
 	@ResponseBody
 	public String[] autocompleteTitle(
-			@RequestParam(value = "search", defaultValue = "*") String title) {
+			@RequestParam(value = "title", required = true) String title) {
 		return postService.queryByTitle(title);
 	}
 
 	private void addDefaultAttributes(Model model) {
 		model.addAttribute("class_name", "posts");
 	}
-
-	/*
-	 * @RequestMapping public String _update(Model model){ return null; }
-	 * 
-	 * @RequestMapping public String _destroy(Model model){ return null; }
-	 */
 }

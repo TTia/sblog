@@ -7,13 +7,11 @@
 		</p>
 	</div>
 	<div id="new_post_action" class="post">
-		<p class="post_title">
-			<a class="new_post_link" href="/posts/new"> <img alt="Add"
-				border="0" height="48" src="/images/add.png" title="Nuovo post"
-				width="48" /></a> <br /> <a class="new_post_link" href="/posts/new">Crea
-				un nuovo post!</a>
-		</p>
+		<form class="post_action" th:method="post" th:action="|/posts/new|"
+			rel="nofollow">
+			<input type="image" alt="Nuovo post" border="0" src="/images/add.png"
+				title="Nuovo post" height="48" width="48" />
+		</form>
 	</div>
-	<div th:replace="/posts/_posts">
-	</div>
+	<div th:replace="/posts/_posts"></div>
 </div>

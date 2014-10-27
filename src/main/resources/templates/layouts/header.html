@@ -1,6 +1,6 @@
 <div id="header">
-	<a id="logo" href="/"> <img alt="RBlog Logo" src="/images/spring.png"
-		width="80" height="80" />
+	<a id="logo" href="/"> <img alt="RBlog Logo"
+		src="/images/spring.png" width="80" height="80" />
 	</a>
 	<div id="header_title">
 		<a href="/" th:text="${page_title}">RBlog</a>
@@ -20,5 +20,16 @@
 			<a href="/abstract">Abstract</a>
 		</div>
 		<!-- <%= render 'layouts/search_header_form' %> -->
+		<div class="banner_link" id="search_link">
+			<form accept-charset="UTF-8" action="/" method="get">
+				<div style="display: none">
+					<input name="utf8" type="hidden" value="✓"></input>
+				</div>
+				<input type="text" placeholder="Ricerca fra i post..."
+					id="search_input_text" name="title" class="ui-autocomplete-input"
+					autocomplete="off"></input> <input alt="Ricerca" id="search_icon"
+					src="/images/search_32.png" type="image"></input>
+			</form>
+		</div>
 	</div>
 </div>

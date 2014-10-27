@@ -30,7 +30,6 @@ function autocomplete() {
                     url: "/posts/autocomplete_title",
                     data: {title: $("#search_input_text").val()},
                     success: function (data) {
-                        console.log("Ok");
                         console.log(data);
                         response(data);
                     },
@@ -41,11 +40,9 @@ function autocomplete() {
             },
             minLength: 2,
             focus: function (event, ui) {
-                //event.preventDefault();
                 $("#search_input_text").val(ui.item.value);
             },
             select: function (event, ui) {
-                //event.preventDefault();
                 $("#search_input_text").val(ui.item.value);
             }
         });
