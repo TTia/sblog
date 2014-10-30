@@ -45,7 +45,6 @@ public class Post {
 
     @Size(min=5, max=100, message = "Il titolo deve essere compreso fra 5 e 100 caratteri.")
     @NotNull(message = "Titolo mancante.")
-    //@UniqueTitle
     @Column(nullable = false, unique = true)
     String title;
 

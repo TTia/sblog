@@ -15,10 +15,6 @@ public class AuthorService {
 		return authorRepository.findOne(id);
 	}
 	
-	public boolean checkPassword(String email, String password){
-		return false;
-	}
-	
 	@Deprecated
 	public void defineTTia(){
 		if(authorRepository.count() != 0){

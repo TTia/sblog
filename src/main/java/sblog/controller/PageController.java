@@ -30,7 +30,6 @@ public class PageController extends AbstractController {
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/index");
 		model.addAttribute("shortener", "true");
-		System.err.println(title);
 		model.addAttribute("posts", "*".equals(title) ? postService.findAll()
 				: postService.findPostsByTitle(title))	;
 

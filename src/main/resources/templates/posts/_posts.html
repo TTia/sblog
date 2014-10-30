@@ -13,7 +13,7 @@
 	</div>
 	<p class="post_content" th:unless="${shortener}" th:text="${post.body}"></p>
 
-	<div class="post_actions">
+	<div class="post_actions" th:if="${session.author_id}">
 		<form class="post_action" th:method="post"
 			th:action="|/posts/${post.id}/edit|" rel="nofollow">
 			<input type="image" alt="Aggiorna" border="0" height="32"

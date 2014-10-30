@@ -16,23 +16,24 @@
 	border-bottom: 1px solid #BBBBBB;
 	overflow: auto;
 	font-family: sans-serif;
+	margin: 1em 15%;
 }
 
 .posts .post .post_title a {
 	text-decoration: none;
 	font-size: 24px;
-	margin-bottom: 12px;
+	margin-bottom: .5em;
 	line-height: 35px;
 	font-family: Montserrat, sans-serif;
 	color: #34302d;
 }
 
-.posts .post_detail {
+.post .post_detail {
 	color: #666666;
 }
 
-.posts .post_content {
-	
+.post .post_content a {
+	margin-bottom: 0.5em;
 }
 
 .posts .post_actions {

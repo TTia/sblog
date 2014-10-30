@@ -17,7 +17,7 @@ public class Author {
 	Integer id;
 
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	String email;
 
 	@NotNull

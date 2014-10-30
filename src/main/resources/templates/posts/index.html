@@ -1,12 +1,10 @@
 <div id='content' class='posts'>
 	<div id="notice" th:if="${notice}">
-		<p xmlns="">
-			<img alt="Bulb" border="0" height="32" src="/images/bulb.png"
-				title="Operazione completata" width="32" />
-			<nobr th:text="${notice}" />
-		</p>
+		<img alt="Bulb" border="0" height="32" src="/images/bulb.png"
+			title="Operazione completata" width="32" />
+		<p th:text="${notice}"></p>
 	</div>
-	<div id="new_post_action" class="post">
+	<div id="new_post_action" class="post" th:if="${session.author_id}">
 		<form class="post_action" th:method="post" th:action="|/posts/new|"
 			rel="nofollow">
 			<input type="image" alt="Nuovo post" border="0" src="/images/add.png"

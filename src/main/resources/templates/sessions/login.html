@@ -1,0 +1,14 @@
+<div id="content">
+	<div id="flashnotice" th:if="${notice}" th:text="${notice}"></div>
+	<form accept-charset="UTF-8" action="#" method="post">
+		<p>
+			<label for="email">Email</label><br/> <input id="email"
+				name="email" type="text" />
+		</p>
+		<p>
+			<label for="password">Password</label><br/> <input id="hpassword"
+				name="password" type="password" />
+		</p>
+		<input id="login_button" name="commit" type="submit" value="Login" />
+	</form>
+</div>

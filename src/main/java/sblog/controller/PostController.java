@@ -1,5 +1,6 @@
 package sblog.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sblog.orm.Post;
 import sblog.service.AuthorService;
 import sblog.service.PostService;
+import sblog.service.SessionService;
 
 @Controller
 @RequestMapping
@@ -25,6 +27,8 @@ public class PostController extends AbstractController {
 	PostService postService;
 	@Autowired
 	AuthorService authorService;
+	@Autowired
+	SessionService sessionService;
 
 	@RequestMapping(value = "/posts")
 	public String index(
@@ -34,7 +38,6 @@ public class PostController extends AbstractController {
 		model.addAttribute("page_title", "SBlog");
 		model.addAttribute("content_template", "/posts/index");
 		model.addAttribute("shortener", "true");
-		System.err.println(title);
 		model.addAttribute("posts", "*".equals(title) ? postService.findAll()
 				: postService.findPostsByTitle(title));
 
@@ -53,9 +56,13 @@ public class PostController extends AbstractController {
 
 	@RequestMapping(value = "/posts/new", method = RequestMethod.POST)
 	public String newPost(@Valid Post post, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectAttributes) {
+			Model model, RedirectAttributes redirectAttributes,
+			HttpSession httpSession) {
 		if (post.getAuthor() == null) {
 			post.setAuthor(authorService.getTTia());
+		}
+		if (!sessionService.isLogged(httpSession)) {
+			return super.authorizationNeeded(redirectAttributes);
 		}
 		this.defaultMapping(model);
 		model.addAttribute("post", post);
@@ -84,7 +91,10 @@ public class PostController extends AbstractController {
 	@RequestMapping(value = "/posts/{id}/edit")
 	public String editPost(@PathVariable Integer id, @Valid Post post,
 			BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, HttpSession httpSession) {
+		if (!sessionService.isLogged(httpSession)) {
+			return super.authorizationNeeded(redirectAttributes);
+		}
 		if (post == null || post.getTitle() == null) {
 			post = postService.getPost(id);
 		}
@@ -116,7 +126,10 @@ public class PostController extends AbstractController {
 
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
 	public String destroy(@PathVariable Integer id,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, HttpSession httpSession) {
+		if (!sessionService.isLogged(httpSession)) {
+			return super.authorizationNeeded(redirectAttributes);
+		}
 		String title = postService.deletePost(id);
 		redirectAttributes.addFlashAttribute("notice", String.format(
 				"Il post '%s' è stato cancellato con successo.", title));

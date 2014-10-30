@@ -6,12 +6,13 @@
 		<a href="/" th:text="${page_title}">RBlog</a>
 	</div>
 	<div id="banner_links">
-		<div class="banner_link" id="login_link">
-			<a href="/">Login</a>
-			<!-- <% if current_user %> -->
-			<!-- <%= link_to "#{current_user.email} - Esci", :log_out, :id =>
-				'log_out_link' %> <% else %> <%= link_to 'Login', :log_in, :id =>
-				'log_in_link' %> <% end %>-->
+		<div class="banner_link" id="login_link"
+			th:if="${session.author_id}">
+			<a href="/logout" id="log_out_link" th:text="${session.author_email}+'- Esci'"></a>
+		</div>
+		<div class="banner_link" id="login_link"
+			th:unless="${session.author_id}">
+			<a href="/login" id="log_in_link">Login</a>
 		</div>
 		<div class="banner_link" id="author_link">
 			<a href="/author">Autore</a>
