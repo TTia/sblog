@@ -10,7 +10,6 @@ Funzionalità: Hello RBlog!
     Allora posso visitare la pagina dell'autore
     E posso visitare la pagina dell'abstract
 
-  @ignore
   Schema dello scenario: Visita alla pagina dell'autore e alla pagina dell'abstract
     Dato apro RBlog
     Quando navigo verso "<nome della pagina>"

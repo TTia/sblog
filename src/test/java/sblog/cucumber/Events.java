@@ -1,11 +1,11 @@
 package sblog.cucumber;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.When;
+import cucumber.api.java.it.Quando;
 
-public class Events {
-	@When("^I ask it to say hi$")
-	public void i_ask_it_to_say_hi() throws Throwable {
+public class Events extends AbstractStepLibrary{
+	@Quando("^navigo verso \"(.*?)\"$")
+	public void navigo_verso(String pageName) throws Throwable {
+	    findByLinkText(pageName).click();
 	}
 
 }
