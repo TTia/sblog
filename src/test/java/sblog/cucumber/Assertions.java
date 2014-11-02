@@ -1,10 +1,12 @@
 package sblog.cucumber;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Then;
+import cucumber.api.java.it.Allora;
 
-public class Assertions {
-	@Then("^it should answer with \"(.*?)\"$")
-	public void it_should_answer_with(String arg1) throws Throwable {
+public class Assertions extends AbstractStepLibrary{
+	@Allora("^posso visitare la pagina dell'autore$")
+	public void posso_visitare_la_pagina_dell_autore() throws Throwable {
+	}
+	@Allora("^posso visitare la pagina dell'abstract$")
+	public void posso_visitare_la_pagina_dell_abstract() throws Throwable {
 	}
 }

@@ -1,11 +1,10 @@
 package sblog.cucumber;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
+import cucumber.api.java.it.Dato;
 
-public class Contraints {
-	@Given("^I have a hello app with \"(.*?)\"$")
-	public void i_have_a_hello_app_with(String arg1) throws Throwable {
+public class Contraints extends AbstractStepLibrary{
+	@Dato("^apro RBlog$")
+	public void apro_RBlog() throws Throwable {
 	}
 
 }
