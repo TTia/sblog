@@ -5,7 +5,7 @@ Funzionalità: Introducendo il (S)CSS
   Come Lettore
   Vorrei che il sito esponesse una grafica omogenea
 
-  Contesto:
+  Contesto: 
     Dato apro RBlog
 
   Scenario: intestazione e pié di pagina
@@ -15,7 +15,8 @@ Funzionalità: Introducendo il (S)CSS
     E il piè di pagina è posizionato alla fine
 
   Scenario: l'intestazione ed il piè di pagina
-  hanno lo stesso schema di colori
+    hanno lo stesso schema di colori
+
     Dato è presente l'intestazione
     E l'intestazione ha un colore di sfondo
     E è presente il pié di pagina
@@ -23,25 +24,28 @@ Funzionalità: Introducendo il (S)CSS
     Allora intestazione e pié di pagina hanno lo stesso colore di sfondo
 
   Schema dello scenario: tramite l'intestazione è possibile navigare
-  alle pagine dell'autore e dell'abstract
+     alle pagine dell'autore e dell'abstract
+
     Dato è presente l'intestazione
     E l'intestazione permette la navigazione
     Allora posso navigare verso "<nome della pagina>"
-  Esempi:
-    | nome della pagina |
-    | Abstract          |
-    | Autore            |
-    | RBlog             |
+
+    Esempi: 
+      | nome della pagina |
+      | Abstract          |
+      | Autore            |
+      | RBlog             |
 
   Schema dello scenario: l'intestazione contiene il titolo della pagina
     Dato navigo verso "<nome della pagina>"
     E la pagina ha un titolo
     Allora il titolo della pagina è uguale a "<nome della pagina>"
-  Esempi:
-    | nome della pagina |
-    | Abstract          |
-    | Autore            |
-    | RBlog             |
+
+    Esempi: 
+      | nome della pagina |
+      | Abstract          |
+      | Autore            |
+      | SBlog             |
 
   Scenario: l'intestazione espone dei semplici effetti cromatici
     Dato è presente l'intestazione
@@ -51,6 +55,7 @@ Funzionalità: Introducendo il (S)CSS
     Allora lo sfondo del collegamento cambia
 
   Scenario: i collegamenti raffigurati tramite immagini devono
-  anche avere una descrizione testuale
+    anche avere una descrizione testuale
+
     Dato sono presenti dei collegamenti raffigurati tramite immagini
     Allora ogni collegamento ha una descrizione testuale
