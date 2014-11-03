@@ -91,8 +91,7 @@ public class Contraints extends AbstractStepLibrary {
 
 		emailInputElement.sendKeys(email);
 		passwordInputElement.sendKeys("password");
-
-		emailInputElement.submit();		
+		emailInputElement.submit();
 	}
 
 	@Dato("^il post \"(.*?)\" non è leggibile su SBlog$")

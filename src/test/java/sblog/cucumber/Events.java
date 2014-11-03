@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.it.Quando;
 
 public class Events extends AbstractStepLibrary {
@@ -40,7 +41,7 @@ public class Events extends AbstractStepLibrary {
 		WebElement postDiv = findPostDivByTitle(postTitle);
 		postDiv.findElement(By.className("remove_post_button")).click();
 	}
-	
+
 	@Quando("^modifico il post \"(.*?)\"$")
 	public void modifico_il_post(String postTitle) {
 		WebElement postDiv = findPostDivByTitle(postTitle);
@@ -53,9 +54,15 @@ public class Events extends AbstractStepLibrary {
 		bodyTextArea.clear();
 		bodyTextArea.sendKeys(body);
 	}
-	
+
 	@Quando("^quando mi disconnetto$")
 	public void quando_mi_disconnetto() {
 		findLogoutLink().click();
+	}
+
+	@Quando("^espando il post \"(.*?)\"$")
+	public void espando_il_post(String postTitle) {
+	    WebElement postDiv = findPostDivByTitle(postTitle);
+	    postDiv.findElement(By.linkText(postTitle)).click();
 	}
 }

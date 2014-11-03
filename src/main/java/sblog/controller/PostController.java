@@ -47,7 +47,7 @@ public class PostController extends AbstractController {
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable Integer id, Model model) {
 		Post post = postService.getPost(id);
-		model.addAttribute("page_title", "SBlog");
+		model.addAttribute("page_title", post.getTitle());
 		model.addAttribute("content_template", "/posts/show");
 		model.addAttribute("posts", new Post[] { post });
 

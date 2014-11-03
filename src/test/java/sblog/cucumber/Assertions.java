@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -144,10 +145,67 @@ public class Assertions extends AbstractStepLibrary {
 		driver.findElement(By
 				.cssSelector("#new_post_action .post_action input"));
 	}
-	
+
 	@Allora("^compare l'errore di autenticazione \"(.*?)\"$")
 	public void compare_l_errore_di_autenticazione(String errorMessage) {
 		WebElement errorMessageNotice = findById("flashnotice");
 		assertEquals(errorMessage, errorMessageNotice.getText());
+	}
+
+	@Allora("^ogni post ha un titolo$")
+	public void ogni_post_ha_un_titolo() {
+		List<WebElement> posts = findPosts();
+		for (WebElement post : posts) {
+			post.findElement(By.className("post_title"));
+		}
+	}
+
+	@Allora("^ogni post ha dei dettagli$")
+	public void ogni_post_ha_dei_dettagli() {
+		List<WebElement> posts = findPosts();
+		for (WebElement post : posts) {
+			List<WebElement> details = post.findElements(By
+					.className("post_detail"));
+			assertTrue(details.size() > 1);
+		}
+	}
+
+	@Allora("^ogni post ha del contenuto$")
+	public void ogni_post_ha_del_contenuto() throws Throwable {
+		List<WebElement> posts = findPosts();
+		for (WebElement post : posts) {
+			post.findElement(By.className("post_content"));
+		}
+	}
+	
+	@Allora("^il contenuto del post \"(.*?)\" è un'anteprima dell'intero post$")
+	public void il_contenuto_del_post_è_un_anteprima_dell_intero_post(String postTitle) throws Throwable {
+	    WebElement postDiv = findPostDivByTitle(postTitle);
+	    WebElement postContent = postDiv.findElement(By.className("post_content"));
+	    int postLength = postContent.getText().length();
+	    assertTrue(postLength < 520);
+	    postDiv.findElement(By.linkText("Leggi il resto"));
+	}
+
+	@Allora("^il contenuto del post \"(.*?)\" rappresenta l'intero post$")
+	public void il_contenuto_del_post_rappresenta_l_intero_post(String postTitle) throws Throwable {
+	    WebElement postDiv = findPostDivByTitle(postTitle);
+	    WebElement postContent = postDiv.findElement(By.className("post_content"));
+	    int postLength = postContent.getText().length();
+	    assertTrue(postLength > 520);
+	}
+	
+	@Allora("^il titolo del post è \"(.*?)\"$")
+	public void il_titolo_del_post_è(String postTitle) {
+		WebElement postDiv = driver.findElement(By.className("post"));
+		WebElement postTitleParagraph = postDiv.findElement(By.className("post_title"));
+		assertEquals(postTitle, postTitleParagraph.getText());
+	}
+
+	@Allora("^il contenuto del titolo include \"(.*?)\"$")
+	public void il_contenuto_del_titolo_include(String partialPostContent) {
+		WebElement postDiv = driver.findElement(By.className("post"));
+		WebElement postTitleContent = postDiv.findElement(By.className("post_content"));
+		assertTrue(postTitleContent.getText().contains(partialPostContent));
 	}
 }

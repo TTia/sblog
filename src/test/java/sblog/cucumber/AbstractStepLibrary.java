@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -39,7 +40,6 @@ public abstract class AbstractStepLibrary {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		System.err.println(file.getAbsolutePath());
 	}
 
 	String getHeaderId() {
@@ -121,5 +121,9 @@ public abstract class AbstractStepLibrary {
 	protected WebElement findLogoutLink() {
 		findHeader();
 		return page.header.findElement(By.id("log_out_link"));
+	}
+
+	protected List<WebElement> findPosts() {
+		return driver.findElements(By.className(".post"));
 	}
 }
