@@ -5,7 +5,7 @@ Funzionalità: Easter Egging
   Vorrei che nel blog fosse presente un mio logo
   Per firmare il mio lavoro
 
-  Contesto:
+  Contesto: 
     Dato apro SBlog
 
   Scenario: EasterEgg

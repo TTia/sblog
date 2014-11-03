@@ -1,5 +1,9 @@
 package sblog.cucumber;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -70,5 +74,16 @@ public class Events extends AbstractStepLibrary {
 	@Quando("^clicco sull'area del pié di pagina$")
 	public void clicco_sull_area_del_pié_di_pagina() throws Throwable {
 		page.footer.click();
+	}
+	
+	@Quando("^inserisco il testo \"(.*?)\" da ricercare$")
+	public void inserisco_il_testo_da_ricercare(String query) throws Throwable {
+		findSearchBarAndInsertText(query);
+	}
+
+	@Quando("^ricerco \"(.*?)\"$")
+	public void ricerco(String query) throws Throwable {
+		findSearchBarAndInsertText(query);
+		page.searchBar.submit();
 	}
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 public class Page {
 	WebElement header, footer;
 	List<WebElement> bannerLinks;
+	WebElement searchBar;
 	public WebElement getFooter() {
 		return footer;
 	}
@@ -24,5 +25,11 @@ public class Page {
 	}
 	public void setBannerLinks(List<WebElement> bannerLinks) {
 		this.bannerLinks = bannerLinks;
+	}
+	public WebElement getSearchBar() {
+		return searchBar;
+	}
+	public void setSearchBar(WebElement searchBar) {
+		this.searchBar = searchBar;
 	}
 }

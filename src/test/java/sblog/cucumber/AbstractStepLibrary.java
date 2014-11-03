@@ -10,8 +10,11 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractStepLibrary {
 	protected static WebDriver driver;
@@ -129,5 +132,11 @@ public abstract class AbstractStepLibrary {
 
 	protected List<WebElement> findPosts() {
 		return driver.findElements(By.className(".post"));
+	}
+
+	protected void findSearchBarAndInsertText(String query) {
+		page.setSearchBar(findById("search_input_text"));
+		page.getSearchBar().clear();
+	    page.getSearchBar().sendKeys(query);
 	}
 }

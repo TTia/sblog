@@ -145,4 +145,8 @@ public class Contraints extends AbstractStepLibrary {
 			fail();
 		} catch (NoSuchElementException e) {}
 	}
+	@Dato("^nell'intestazione è presente la barra di ricerca$")
+	public void nell_intestazione_è_presente_la_barra_di_ricerca() {
+		findById("search_input_text");
+	}
 }

@@ -6,23 +6,21 @@ Funzionalità: Ricerca fra i post
   Per poter navigare fra i contenuti più velocemente
 
   Contesto: 
-    Dato apro RBlog
-    Dato mi autentico come "mattia@rblog.io"
+    Dato apro SBlog
+    Dato mi autentico come "ttia@sblog.io"
 
-  @ignore
   Scenario: Autocompletamento della ricerca
     Dato nell'intestazione è presente la barra di ricerca
     Dato il post "Lorem Ipsum" esiste
-    Quando inserisco il testo "Lorem" da ricercare
-    Allora viene proposto il post "Lorem Ipsum"
-    Quando inserisco il testo "lor" da ricercare
-    Allora viene proposto il post "Lorem Ipsum"
     Quando inserisco il testo "xyz" da ricercare
     Allora non è proposto alcun post
     Quando inserisco il testo "L" da ricercare
     Allora non è proposto alcun post
+    Quando inserisco il testo "Lorem" da ricercare
+    Allora viene proposto il post "Lorem Ipsum"
+    Quando inserisco il testo "lor" da ricercare
+    Allora viene proposto il post "Lorem Ipsum"
 
-  @ignore
   Scenario: Ricerca di un post esistente
     Dato nell'intestazione è presente la barra di ricerca
     Dato il post "Lorem Ipsum" esiste
@@ -31,7 +29,6 @@ Funzionalità: Ricerca fra i post
     Quando ricerco "lo"
     Allora il post "Lorem Ipsum" è leggibile
 
-  @ignore
   Scenario: Ricerca di un post non esistente
     Dato nell'intestazione è presente la barra di ricerca
     Dato il post "Lorem Ipsum" esiste

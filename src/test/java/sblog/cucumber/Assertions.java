@@ -1,17 +1,21 @@
 package sblog.cucumber;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.it.Allora;
 
 public class Assertions extends AbstractStepLibrary {
@@ -179,42 +183,91 @@ public class Assertions extends AbstractStepLibrary {
 			post.findElement(By.className("post_content"));
 		}
 	}
-	
+
 	@Allora("^il contenuto del post \"(.*?)\" è un'anteprima dell'intero post$")
-	public void il_contenuto_del_post_è_un_anteprima_dell_intero_post(String postTitle) throws Throwable {
-	    WebElement postDiv = findPostDivByTitle(postTitle);
-	    WebElement postContent = postDiv.findElement(By.className("post_content"));
-	    int postLength = postContent.getText().length();
-	    assertTrue(postLength < 520);
-	    postDiv.findElement(By.linkText("Leggi il resto"));
+	public void il_contenuto_del_post_è_un_anteprima_dell_intero_post(
+			String postTitle) throws Throwable {
+		WebElement postDiv = findPostDivByTitle(postTitle);
+		WebElement postContent = postDiv.findElement(By
+				.className("post_content"));
+		int postLength = postContent.getText().length();
+		assertTrue(postLength < 520);
+		postDiv.findElement(By.linkText("Leggi il resto"));
 	}
 
 	@Allora("^il contenuto del post \"(.*?)\" rappresenta l'intero post$")
-	public void il_contenuto_del_post_rappresenta_l_intero_post(String postTitle) throws Throwable {
-	    WebElement postDiv = findPostDivByTitle(postTitle);
-	    WebElement postContent = postDiv.findElement(By.className("post_content"));
-	    int postLength = postContent.getText().length();
-	    assertTrue(postLength > 520);
+	public void il_contenuto_del_post_rappresenta_l_intero_post(String postTitle)
+			throws Throwable {
+		WebElement postDiv = findPostDivByTitle(postTitle);
+		WebElement postContent = postDiv.findElement(By
+				.className("post_content"));
+		int postLength = postContent.getText().length();
+		assertTrue(postLength > 520);
 	}
-	
+
 	@Allora("^il titolo del post è \"(.*?)\"$")
 	public void il_titolo_del_post_è(String postTitle) {
 		WebElement postDiv = driver.findElement(By.className("post"));
-		WebElement postTitleParagraph = postDiv.findElement(By.className("post_title"));
+		WebElement postTitleParagraph = postDiv.findElement(By
+				.className("post_title"));
 		assertEquals(postTitle, postTitleParagraph.getText());
 	}
 
 	@Allora("^il contenuto del titolo include \"(.*?)\"$")
 	public void il_contenuto_del_titolo_include(String partialPostContent) {
 		WebElement postDiv = driver.findElement(By.className("post"));
-		WebElement postTitleContent = postDiv.findElement(By.className("post_content"));
+		WebElement postTitleContent = postDiv.findElement(By
+				.className("post_content"));
 		assertTrue(postTitleContent.getText().contains(partialPostContent));
 	}
-	
+
 	@Allora("^è presente il logo$")
 	public void è_presente_il_logo() {
 		new WebDriverWait(driver, 2).until(ExpectedConditions
 				.presenceOfElementLocated(By.cssSelector("img")));
-	    page.footer.findElement(By.id("woodstock"));
+		page.footer.findElement(By.id("woodstock"));
+	}
+
+	@Allora("^viene proposto il post \"(.*?)\"$")
+	public void viene_proposto_il_post(String postTitle) throws Throwable {
+		String xpathExpression = String.format("//li[@class = 'ui-menu-item']",
+				postTitle);
+
+		List<WebElement> lis = new WebDriverWait(driver, 4)
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
+						.xpath(xpathExpression)));
+		boolean isPostProposed = false;
+		for (WebElement li : lis) {
+			isPostProposed |= li.getText().equals(postTitle)
+					&& li.isDisplayed();
+		}
+		assertTrue(isPostProposed);
+	}
+
+	@Allora("^non è proposto alcun post$")
+	public void non_è_proposto_alcun_post() throws Throwable {
+		try {
+			WebElement li = new WebDriverWait(driver, 4)
+					.until(ExpectedConditions.presenceOfElementLocated(By
+							.cssSelector(".ui-menu-item")));
+			takeScreenshot();
+			assertFalse(li.isDisplayed());
+		} catch (TimeoutException e) {
+		}
+	}
+
+	@Allora("^il post \"(.*?)\" è leggibile$")
+	public void il_post_è_leggibile(String postTitle) throws Throwable {
+		findPostDivByTitle(postTitle);
+	}
+
+	@Allora("^il post \"(.*?)\" non è leggibile$")
+	public void il_post_non_è_leggibile(String postTitle) throws Throwable {
+		try {
+			findPostDivByTitle(postTitle);
+			fail();
+		} catch (NoSuchElementException e) {
+			//
+		}
 	}
 }
