@@ -30,7 +30,7 @@ public class Contraints extends AbstractStepLibrary {
 
 	@Dato("^è presente il pié di pagina$")
 	public void è_presente_il_pié_di_pagina() throws Throwable {
-		page.setFooter(findById(getFooterId()));
+		findFooter();
 	}
 
 	@Dato("^l'intestazione ha un colore di sfondo$")
@@ -130,5 +130,19 @@ public class Contraints extends AbstractStepLibrary {
 		} catch (NoSuchElementException e) {
 			//
 		}
+	}
+
+	@Dato("^non è presente il logo nell'intestazione$")
+	public void non_è_presente_il_logo_nell_intestazione() {
+		findFooter();
+		try {
+			page.footer.findElement(By.cssSelector("img"));
+			fail();
+		} catch (NoSuchElementException e) {}
+		
+		try {
+			page.footer.findElement(By.id("woodstock"));
+			fail();
+		} catch (NoSuchElementException e) {}
 	}
 }

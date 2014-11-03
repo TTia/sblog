@@ -117,6 +117,10 @@ public abstract class AbstractStepLibrary {
 	protected void findHeader() {
 		page.setHeader(findById(getHeaderId()));
 	}
+	
+	protected void findFooter() {
+		page.setFooter(findById(getFooterId()));
+	}
 
 	protected WebElement findLogoutLink() {
 		findHeader();

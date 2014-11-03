@@ -8,6 +8,8 @@ import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.it.Allora;
@@ -207,5 +209,12 @@ public class Assertions extends AbstractStepLibrary {
 		WebElement postDiv = driver.findElement(By.className("post"));
 		WebElement postTitleContent = postDiv.findElement(By.className("post_content"));
 		assertTrue(postTitleContent.getText().contains(partialPostContent));
+	}
+	
+	@Allora("^è presente il logo$")
+	public void è_presente_il_logo() {
+		new WebDriverWait(driver, 2).until(ExpectedConditions
+				.presenceOfElementLocated(By.cssSelector("img")));
+	    page.footer.findElement(By.id("woodstock"));
 	}
 }

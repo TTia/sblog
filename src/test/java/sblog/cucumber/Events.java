@@ -3,8 +3,9 @@ package sblog.cucumber;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.it.Quando;
 
 public class Events extends AbstractStepLibrary {
@@ -62,7 +63,12 @@ public class Events extends AbstractStepLibrary {
 
 	@Quando("^espando il post \"(.*?)\"$")
 	public void espando_il_post(String postTitle) {
-	    WebElement postDiv = findPostDivByTitle(postTitle);
-	    postDiv.findElement(By.linkText(postTitle)).click();
+		WebElement postDiv = findPostDivByTitle(postTitle);
+		postDiv.findElement(By.linkText(postTitle)).click();
+	}
+
+	@Quando("^clicco sull'area del pié di pagina$")
+	public void clicco_sull_area_del_pié_di_pagina() throws Throwable {
+		page.footer.click();
 	}
 }

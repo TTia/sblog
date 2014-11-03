@@ -6,6 +6,6 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(format = {"pretty"}, tags = {"@cap4", "~@ignore"})
+@CucumberOptions(format = {"pretty"}, tags = {"@cap5", "~@ignore"})
 public class RunCukesTest {
 }
