@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.PendingException;
@@ -98,15 +99,55 @@ public class Assertions extends AbstractStepLibrary {
 	}
 
 	@Allora("^il post \"(.*?)\" è stato cancellato con successo$")
-	public void il_post_è_stato_cancellato_con_successo(String postTitle) throws Throwable {
+	public void il_post_è_stato_cancellato_con_successo(String postTitle)
+			throws Throwable {
 		String noticeMessage = String.format(
 				"Il post '%s' è stato cancellato con successo.", postTitle);
 		checkNoticeMessage(noticeMessage);
 	}
-	
+
 	@Allora("^compare l'errore \"(.*?)\"$")
 	public void compare_l_errore(String errorMessage) {
-	    WebElement pErrorDescription = findById("error_description");
-	    assertEquals(errorMessage, pErrorDescription.getText());
+		WebElement pErrorDescription = findById("error_description");
+		assertEquals(errorMessage, pErrorDescription.getText());
+	}
+
+	@Allora("^tramite l'intestazione posso autenticarmi$")
+	public void tramite_l_intestazione_posso_autenticarmi() {
+		findHeader();
+		page.header.findElement(By.id("log_in_link"));
+	}
+
+	@Allora("^l'utente è autenticato$")
+	public void l_utente_è_autenticato() {
+		findById("log_out_link");
+	}
+
+	@Allora("^tramite l'intestazione non posso autenticarmi$")
+	public void tramite_l_intestazione_non_posso_autenticarmi() {
+		findHeader();
+		try {
+			page.header.findElement(By.id("log_in_link"));
+			fail();
+		} catch (NoSuchElementException e) {
+			//
+		}
+	}
+
+	@Allora("^tramite l'intestazione posso disconnettermi$")
+	public void tramite_l_intestazione_posso_disconnettermi() {
+		findLogoutLink();
+	}
+
+	@Allora("^posso navigare verso la pagina per la creazione di un nuovo post$")
+	public void posso_navigare_verso_la_pagina_per_la_creazione_di_un_nuovo_post() {
+		driver.findElement(By
+				.cssSelector("#new_post_action .post_action input"));
+	}
+	
+	@Allora("^compare l'errore di autenticazione \"(.*?)\"$")
+	public void compare_l_errore_di_autenticazione(String errorMessage) {
+		WebElement errorMessageNotice = findById("flashnotice");
+		assertEquals(errorMessage, errorMessageNotice.getText());
 	}
 }

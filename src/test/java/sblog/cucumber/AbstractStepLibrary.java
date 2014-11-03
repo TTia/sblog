@@ -113,4 +113,13 @@ public abstract class AbstractStepLibrary {
 		visitHomePage();
 		findPostDivByTitle(postTitle);
 	}
+
+	protected void findHeader() {
+		page.setHeader(findById(getHeaderId()));
+	}
+
+	protected WebElement findLogoutLink() {
+		findHeader();
+		return page.header.findElement(By.id("log_out_link"));
+	}
 }

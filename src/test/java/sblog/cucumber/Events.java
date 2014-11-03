@@ -53,5 +53,9 @@ public class Events extends AbstractStepLibrary {
 		bodyTextArea.clear();
 		bodyTextArea.sendKeys(body);
 	}
-
+	
+	@Quando("^quando mi disconnetto$")
+	public void quando_mi_disconnetto() {
+		findLogoutLink().click();
+	}
 }

@@ -3,14 +3,21 @@ package sblog.cucumber;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Set;
 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.it.Dato;
 
 public class Contraints extends AbstractStepLibrary {
+	// @Rule
+	// public ExpectedException exception = ExpectedException.none();
+
 	@Dato("^apro SBlog$")
 	public void apro_SBlog() {
 		visitHomePage();
@@ -18,7 +25,7 @@ public class Contraints extends AbstractStepLibrary {
 
 	@Dato("^è presente l'intestazione$")
 	public void è_presente_l_intestazione() throws Throwable {
-		page.setHeader(findById(getHeaderId()));
+		findHeader();
 	}
 
 	@Dato("^è presente il pié di pagina$")
@@ -82,10 +89,10 @@ public class Contraints extends AbstractStepLibrary {
 		WebElement passwordInputElement = driver.findElement(By
 				.name("password"));
 
-		emailInputElement.sendKeys("ttia@sblog.io");
+		emailInputElement.sendKeys(email);
 		passwordInputElement.sendKeys("password");
 
-		emailInputElement.submit();
+		emailInputElement.submit();		
 	}
 
 	@Dato("^il post \"(.*?)\" non è leggibile su SBlog$")
@@ -108,11 +115,21 @@ public class Contraints extends AbstractStepLibrary {
 		openNewPostPage();
 		insertPostTitle(postTitle);
 		insertPostBody();
-		savePost();	    
+		savePost();
 		String noticeMessage = String.format(
 				"Il post '%s' è stato creato con successo.", postTitle);
 		checkNoticeMessage(noticeMessage);
 		assertPostExistsOnSBlog(postTitle);
 	}
 
+	@Dato("^l'utente non è autenticato$")
+	public void l_utente_non_è_autenticato() {
+		findById("log_in_link");
+		try {
+			findById("log_out_link");
+			fail();
+		} catch (NoSuchElementException e) {
+			//
+		}
+	}
 }
