@@ -2,7 +2,7 @@
 	<form accept-charset="UTF-8" action="#" method="post"
 		th:object="${post}">
 		<div class="form_actions">
-			<input alt="${submit_text}" id="submit" src="/images/save_48.png"
+			<input th:alt="${submit_text}" id="submit" src="/images/save_48.png"
 				type="image" />
 		</div>
 		<p id="form_title" th:text="${submit_text}"></p>

@@ -5,15 +5,15 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.it.Dato;
 
 public class Contraints extends AbstractStepLibrary {
-	@Dato("^apro RBlog$")
-	public void apro_RBlog() {
-		driver.navigate().to(getSblogURL());
-		page = new Page();
+	@Dato("^apro SBlog$")
+	public void apro_SBlog() {
+		visitHomePage();
 	}
 
 	@Dato("^è presente l'intestazione$")
@@ -64,12 +64,55 @@ public class Contraints extends AbstractStepLibrary {
 		}
 		page.setBannerLinks(bannerLinks);
 	}
-	
+
 	@Dato("^sono presenti dei collegamenti raffigurati tramite immagini$")
 	public void sono_presenti_dei_collegamenti_raffigurati_tramite_immagini() {
-		List<WebElement> linkedImages = driver.findElements(By.cssSelector("a img"));
+		List<WebElement> linkedImages = driver.findElements(By
+				.cssSelector("a img"));
 		assertNotNull(linkedImages);
 		assertNotEquals(0, linkedImages.size());
+	}
+
+	@Dato("^mi autentico come \"(.*?)\"$")
+	public void mi_autentico_come(String email) {
+		WebElement loginLink = findById("log_in_link");
+		loginLink.click();
+
+		WebElement emailInputElement = driver.findElement(By.name("email"));
+		WebElement passwordInputElement = driver.findElement(By
+				.name("password"));
+
+		emailInputElement.sendKeys("ttia@sblog.io");
+		passwordInputElement.sendKeys("password");
+
+		emailInputElement.submit();
+	}
+
+	@Dato("^il post \"(.*?)\" non è leggibile su SBlog$")
+	public void il_post_non_è_leggibile_su_SBlog(String postTitle) {
+		try {
+			assertPostExistsOnSBlog(postTitle);
+			fail();
+		} catch (NoSuchElementException e) {
+			//
+		}
+	}
+
+	@Dato("^apro la pagina per la creazione di un nuovo post$")
+	public void apro_la_pagina_per_la_creazione_di_un_nuovo_post() {
+		openNewPostPage();
+	}
+
+	@Dato("^il post \"(.*?)\" esiste$")
+	public void il_post_esiste(String postTitle) throws Throwable {
+		openNewPostPage();
+		insertPostTitle(postTitle);
+		insertPostBody();
+		savePost();	    
+		String noticeMessage = String.format(
+				"Il post '%s' è stato creato con successo.", postTitle);
+		checkNoticeMessage(noticeMessage);
+		assertPostExistsOnSBlog(postTitle);
 	}
 
 }
