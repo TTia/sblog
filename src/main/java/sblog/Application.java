@@ -60,7 +60,7 @@ public class Application {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[] { "sblog.orm" });
+		em.setPackagesToScan("sblog.orm");
 
 		JpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);

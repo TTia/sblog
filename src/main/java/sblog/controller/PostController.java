@@ -21,7 +21,7 @@ import sblog.service.PostService;
 import sblog.service.SessionService;
 
 @Controller
-@RequestMapping
+@RequestMapping(value = "/posts")
 public class PostController extends AbstractController {
 	@Autowired
 	PostService postService;
@@ -30,7 +30,8 @@ public class PostController extends AbstractController {
 	@Autowired
 	SessionService sessionService;
 
-	@RequestMapping(value = "/posts")
+	//@RequestMapping(value = "/posts")
+	@RequestMapping
 	public String index(
 			@RequestParam(value = "title", defaultValue = "*") String title,
 			Model model) {
@@ -44,7 +45,8 @@ public class PostController extends AbstractController {
 		return super.defaultMapping(model);
 	}
 
-	@RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
+	//@RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable Integer id, Model model) {
 		Post post = postService.getPost(id);
 		model.addAttribute("page_title", post.getTitle());
@@ -54,7 +56,8 @@ public class PostController extends AbstractController {
 		return super.defaultMapping(model);
 	}
 
-	@RequestMapping(value = "/posts/new", method = RequestMethod.POST)
+	//@RequestMapping(value = "/posts/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String newPost(@Valid Post post, BindingResult bindingResult,
 			Model model, RedirectAttributes redirectAttributes,
 			HttpSession httpSession) {
@@ -88,7 +91,8 @@ public class PostController extends AbstractController {
 		return "redirect:/posts/{id}";
 	}
 
-	@RequestMapping(value = "/posts/{id}/edit")
+	//@RequestMapping(value = "/posts/{id}/edit")
+	@RequestMapping(value = "/{id}/edit")
 	public String editPost(@PathVariable Integer id, @Valid Post post,
 			BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes, HttpSession httpSession) {
@@ -124,7 +128,8 @@ public class PostController extends AbstractController {
 		return "redirect:/posts/{id}";
 	}
 
-	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
+	//@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String destroy(@PathVariable Integer id,
 			RedirectAttributes redirectAttributes, HttpSession httpSession) {
 		if (!sessionService.isLogged(httpSession)) {
@@ -136,7 +141,8 @@ public class PostController extends AbstractController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/posts/autocomplete_title", method = RequestMethod.GET)
+	//@RequestMapping(value = "/posts/autocomplete_title", method = RequestMethod.GET)
+	@RequestMapping(value = "/autocomplete_title", method = RequestMethod.GET)
 	@ResponseBody
 	public String[] autocompleteTitle(
 			@RequestParam(value = "title", required = true) String title) {

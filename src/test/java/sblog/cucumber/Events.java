@@ -14,7 +14,7 @@ import cucumber.api.java.it.Quando;
 
 public class Events extends AbstractStepLibrary {
 	@Quando("^navigo verso \"(.*?)\"$")
-	public void navigo_verso(String pageName) throws Throwable {
+	public void navigo_verso(String pageName) {
 		findByLinkText(pageName).click();
 		createNewPageObject();
 	}
