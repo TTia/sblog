@@ -23,7 +23,7 @@ public class Events extends AbstractStepLibrary {
 	public void il_cursore_si_sposta_sui_collegamenti() {
 		Actions action = new Actions(driver);
 		WebElement bannerLink = page.getBannerLinks().get(0);
-		action.moveToElement(bannerLink).build().perform();
+		action.moveToElement(bannerLink).perform();
 	}
 
 	@Quando("^inserisco \"(.*?)\" come titolo$")

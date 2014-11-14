@@ -6,7 +6,7 @@ Funzionalità: Introducendo il (S)CSS
   Vorrei che il sito esponesse una grafica omogenea
 
   Contesto: 
-    Dato apro RBlog
+    Dato apro SBlog
 
   Scenario: intestazione e pié di pagina
     Dato è presente l'intestazione

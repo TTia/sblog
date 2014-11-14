@@ -42,14 +42,14 @@ public class Assertions extends AbstractStepLibrary {
 
 	@Allora("^l'intestazione è posizionata all'inizio$")
 	public void l_intestazione_è_posizionata_all_inizio() throws Throwable {
-		String xpathExpression = "descendant::body/*[1]";
+		String xpathExpression = "//body/*[1]";
 		WebElement header = findByXPath(xpathExpression);
 		assertEquals(page.header, header);
 	}
 
 	@Allora("^il piè di pagina è posizionato alla fine$")
 	public void il_piè_di_pagina_è_posizionato_alla_fine() throws Throwable {
-		String xpathExpression = "descendant::body/div[last()]";
+		String xpathExpression = "//body/div[last()]";
 		WebElement footer = findByXPath(xpathExpression);
 		assertEquals(page.footer, footer);
 	}
@@ -77,7 +77,6 @@ public class Assertions extends AbstractStepLibrary {
 	public void lo_sfondo_del_collegamento_cambia() {
 		WebElement bannerLink = page.getBannerLinks().get(0);
 		String bannerLinkColor = bannerLink.getCssValue("background-color");
-		assertNotEquals("rgba(0, 0, 0, 0)", bannerLinkColor);
 		assertEquals("rgba(91, 168, 42, 1)", bannerLinkColor);
 	}
 

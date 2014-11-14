@@ -7,7 +7,7 @@ Funzionalità: Gestione dei post
 
   Contesto: 
     Dato apro SBlog
-    Dato mi autentico come "mattia@SBlog.io"
+    Dato mi autentico come "ttia@sblog.io"
 
   Scenario: Scrittura di un nuovo post
     Dato il post "Lorem Ipsum" non è leggibile su SBlog

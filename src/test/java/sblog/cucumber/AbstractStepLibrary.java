@@ -84,6 +84,7 @@ public abstract class AbstractStepLibrary {
 	}
 
 	protected void openNewPostPage() {
+		takeScreenshot();
 		WebElement newPostButton = driver.findElement(By
 				.cssSelector("#new_post_action .post_action input"));
 		newPostButton.click();
